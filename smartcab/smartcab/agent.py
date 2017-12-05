@@ -93,6 +93,8 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # When learning, check if the 'state' is not in the Q-table
+        if not self.learning:
+            return
         if self.learning:
             if not self.Q.has_key(state):
                 self.Q[state] = self.Q.get(state, {None:0.0, 'forward':0.0, 'left':0.0, 'right':0.0})
@@ -121,7 +123,7 @@ class LearningAgent(Agent):
                 action=random.choice(self.valid_actions)
         # When learning, choose a random action with 'epsilon' probability
         else:
-            if random.random()<=self.epsilon:
+            if random.random()>self.epsilon:
                 action=random.choice(self.valid_actions)
         # Otherwise, choose an action with the highest Q-value for the current state
             else:
